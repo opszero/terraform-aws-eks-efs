@@ -1,5 +1,4 @@
 variable "name" {
-  default     = ""
   description = "EFS file system bame"
 }
 

@@ -1,6 +1,10 @@
 resource "aws_efs_file_system" "this" {
   creation_token = var.name
-  tags           = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name = var.name
+  })
 }
 
 resource "aws_efs_mount_target" "this" {
