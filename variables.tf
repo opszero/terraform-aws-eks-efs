@@ -8,8 +8,8 @@ variable "subnet_ids" {
   description = "Subnet ID from Kubernetes VPC"
 }
 
-variable "node_security_group_ids" {
-  default     = ""
+variable "security_group_ids" {
+  default     = []
   description = "Kubernetes node security group id"
 }
 
