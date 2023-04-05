@@ -18,6 +18,5 @@ resource "kubernetes_storage_class_v1" "this" {
     provisioningMode = "efs-ap"
     fileSystemId     = aws_efs_file_system.this.id
     directoryPerms   = "700"
-    basePath         = var.path
   }
 }

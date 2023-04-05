@@ -1,12 +1,6 @@
-
 variable "name" {
   default     = ""
   description = "EFS file system bame"
-}
-
-variable "path" {
-  default     = ""
-  description = "EFS file system path"
 }
 
 variable "subnet_ids" {
