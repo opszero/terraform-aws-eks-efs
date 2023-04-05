@@ -23,7 +23,7 @@ resource "kubernetes_storage_class_v1" "this" {
     provisioningMode = "efs-ap"
     fileSystemId     = aws_efs_file_system.this.id
     directoryPerms   = "700"
-    gidRangeStart    = "1000" # optional
-    gidRangeEnd      = "2000" # optional
+    gidRangeStart    = "50000"   # optional
+    gidRangeEnd      = "7000000" # optional
   }
 }
