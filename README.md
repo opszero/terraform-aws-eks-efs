@@ -12,7 +12,6 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | EFS file system bame | `string` | `""` | no |
 | <a name="input_node_security_group_ids"></a> [node\_security\_group\_ids](#input\_node\_security\_group\_ids) | Kubernetes node security group id | `string` | `""` | no |
-| <a name="input_path"></a> [path](#input\_path) | EFS file system path | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet ID from Kubernetes VPC | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to all resources | `map` | `{}` | no |
 ## Resources
