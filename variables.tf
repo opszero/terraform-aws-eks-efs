@@ -2,8 +2,8 @@ variable "name" {
   description = "EFS file system bame"
 }
 
-variable "subnet_id" {
-  default     = ""
+variable "subnet_ids" {
+  default     = []
   description = "Subnet ID from Kubernetes VPC"
 }
 
