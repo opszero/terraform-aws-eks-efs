@@ -24,22 +24,3 @@ resource "kubernetes_storage_class_v1" "this" {
     directoryPerms   = "700"
   }
 }
-
-resource "kubernetes_persistent_volume" "example" {
-  metadata {
-    name = var.name
-  }
-
-  spec {
-    capacity {
-      storage = "5Gi"
-    }
-    access_modes                     = ["ReadWriteMany"]
-    persistent_volume_reclaim_policy = "Retain"
-    storage_class_name               = kubernetes_storage_class_v1.this.metadata[0].name
-    csi {
-      driver        = "efs.csi.aws.com"
-      volume_handle = resource.aws_efs_mount_target.this.id
-    }
-  }
-}
