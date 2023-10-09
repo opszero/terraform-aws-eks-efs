@@ -3,7 +3,10 @@ variable "name" {
 }
 
 variable "subnet_ids" {
-  default     = []
+  default     = [
+  "subnet-05a481d2907856a41",
+  "subnet-0bada3c76d8bae888"
+  ]
   description = "Subnet ID from Kubernetes VPC"
 }
 

@@ -50,7 +50,7 @@ resource "kubernetes_persistent_volume" "this" {
   }
 
   spec {
-    capacity {
+    capacity = {
       storage = var.efs_storage_size
     }
 
@@ -59,26 +59,30 @@ resource "kubernetes_persistent_volume" "this" {
     persistent_volume_reclaim_policy = "Retain"
     storage_class_name               = kubernetes_storage_class.this.metadata[0].name
 
-    csi {
+    persistent_volume_source {
+      csi  {
       driver        = "efs.csi.aws.com"
       volume_handle = aws_efs_file_system.this.id
     }
-  }
-}
-
-resource "kubernetes_persistent_volume_claim" "this" {
-  metadata {
-    name = "efs-storage-claim"
-  }
-
-  spec {
-    access_modes       = ["ReadWriteMany"]
-    storage_class_name = kubernetes_storage_class.this.metadata[0].name
-
-    resources {
-      requests = {
-        storage = var.efs_storage_size
-      }
     }
+
   }
 }
+
+#resource "kubernetes_persistent_volume_claim" "this" {
+#  metadata {
+#    name = "efs-storage-claim"
+#    namespace = "mageai"
+#  }
+#
+#  spec {
+#    access_modes       = ["ReadWriteMany"]
+#    storage_class_name = kubernetes_storage_class.this.metadata[0].name
+#
+#    resources {
+#      requests = {
+#        storage = var.efs_storage_size
+#      }
+#    }
+#  }
+#}
