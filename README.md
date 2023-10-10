@@ -10,10 +10,11 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_efs_pvc_namespace"></a> [efs\_pvc\_namespace](#input\_efs\_pvc\_namespace) | The namespace of PVC should be deployed | `string` | `"default"` | no |
 | <a name="input_efs_storage_size"></a> [efs\_storage\_size](#input\_efs\_storage\_size) | Storage requested by kubernetes | `string` | `"5Gi"` | no |
 | <a name="input_name"></a> [name](#input\_name) | EFS file system name | `any` | n/a | yes |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Kubernetes node security group id | `list` | `[]` | no |
-| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet ID from Kubernetes VPC | `list` | `[]` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet ID from Kubernetes VPC | `list(list(string))` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to all resources | `map` | `{}` | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | VPC CIDR block for allowing access in efs system | `string` | `""` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | EKS cluster vpc id | `string` | `""` | no |
