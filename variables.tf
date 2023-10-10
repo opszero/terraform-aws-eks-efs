@@ -4,6 +4,7 @@ variable "name" {
 
 variable "subnet_ids" {
   default     = []
+  type        = list(list(string))
   description = "Subnet ID from Kubernetes VPC"
 }
 
@@ -13,18 +14,23 @@ variable "security_group_ids" {
 }
 
 variable "vpc_id" {
-  default = ""
+  default     = ""
   description = "EKS cluster vpc id"
 }
 
 variable "vpc_cidr_block" {
-  default = ""
+  default     = ""
   description = "VPC CIDR block for allowing access in efs system"
 }
 
 variable "efs_storage_size" {
-  default = "5Gi"
+  default     = "5Gi"
   description = "Storage requested by kubernetes"
+}
+
+variable "efs_pvc_namespace" {
+  default     = "default"
+  description = "The namespace of PVC should be deployed"
 }
 
 variable "tags" {

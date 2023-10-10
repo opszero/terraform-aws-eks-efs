@@ -12,10 +12,10 @@ resource "aws_efs_file_system" "this" {
 }
 
 resource "aws_efs_mount_target" "this" {
-  count = length(var.subnet_ids)
+  count = length(flatten(var.subnet_ids))
 
   file_system_id  = aws_efs_file_system.this.id
-  subnet_id       = var.subnet_ids[count.index]
+  subnet_id       = flatten(var.subnet_ids)[count.index]
   security_groups = [aws_security_group.this.id]
 }
 
@@ -40,7 +40,6 @@ resource "kubernetes_storage_class" "this" {
   metadata {
     name = "efs-sc"
   }
-
   storage_provisioner = "efs.csi.aws.com"
 }
 
@@ -48,37 +47,35 @@ resource "kubernetes_persistent_volume" "this" {
   metadata {
     name = "efs-pvc"
   }
-
   spec {
-    capacity {
+    capacity = {
       storage = var.efs_storage_size
     }
+    access_modes = ["ReadWriteMany"]
 
-    volume_mode                      = "Filesystem"
-    access_modes                     = ["ReadWriteMany"]
-    persistent_volume_reclaim_policy = "Retain"
-    storage_class_name               = kubernetes_storage_class.this.metadata[0].name
-
-    csi {
-      driver        = "efs.csi.aws.com"
-      volume_handle = aws_efs_file_system.this.id
+    storage_class_name = kubernetes_storage_class.this.metadata[0].name
+    persistent_volume_source {
+      csi {
+        driver        = "efs.csi.aws.com"
+        volume_handle = aws_efs_file_system.this.id
+      }
     }
   }
 }
 
 resource "kubernetes_persistent_volume_claim" "this" {
   metadata {
-    name = "efs-storage-claim"
+    name      = "efs-storage-claim"
+    namespace = var.efs_pvc_namespace
   }
-
   spec {
-    access_modes       = ["ReadWriteMany"]
-    storage_class_name = kubernetes_storage_class.this.metadata[0].name
-
+    access_modes = ["ReadWriteMany"]
     resources {
       requests = {
         storage = var.efs_storage_size
       }
     }
+    storage_class_name = kubernetes_storage_class.this.metadata[0].name
+    volume_name        = kubernetes_persistent_volume.this.metadata[0].name
   }
 }
